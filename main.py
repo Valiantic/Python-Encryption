@@ -27,22 +27,15 @@ def caesar_cipher(text, shift):
 
 # CAESAR CIPHER (DECODE)
 def caesar_decipher(text, shift):
-    # reversing the word 
-    return caesar_cipher(text, -shift)  
+    return caesar_cipher(text, -shift)  # Negative shift reverses the cipher
 
 # ROT13 CIPHER
 def rot13_cipher(text):
-    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    ciphered_text = ""
-    for char in text.upper():
-        if char in alphabet:
-            # rotate the word by 13 places 
-            # note just edit the key for the caesar cipher place 
-            new_index = (alphabet.index(char) + 13) % 26 
-            ciphered_text += alphabet[new_index]
-        else:
-            ciphered_text += char  
-    return ciphered_text  # Symmetric: applying again reverses the process
+    return caesar_cipher(text, 13)  # ROT13 is Caesar with a shift of 13
+
+# ROT14 CIPHER
+def rot14_cipher(text):
+    return caesar_cipher(text, 14)  # ROT14 is Caesar with a shift of 14
 
 # TRANSPOSITION CIPHER
 def transposition_cipher(text):
@@ -89,7 +82,7 @@ def substitution_cipher(text):
 while True:
     text = input("Enter a word to cipher: ")
     choice = input(
-        "Choose cipher type:\n1. Atbash\n2. Caesar (encode)\n3. Caesar (decode)\n4. ROT13\n5. Transposition\n6. Keyword\n7. Substitution\n"
+        "Choose cipher type:\n1. Atbash\n2. Caesar (encode)\n3. Caesar (decode)\n4. ROT13\n5. ROT14\n6. Transposition\n7. Keyword\n8. Substitution\n"
     ).strip().lower()
 
     if choice == "1":
@@ -107,13 +100,16 @@ while True:
         ciphered_word = rot13_cipher(text)
         print("Ciphered word using ROT13 (encode/decode):", ciphered_word)
     elif choice == "5":
+        ciphered_word = rot14_cipher(text)
+        print("Ciphered word using ROT14 (encode/decode):", ciphered_word)
+    elif choice == "6":
         ciphered_word = transposition_cipher(text)
         print("Ciphered word using Transposition:", ciphered_word)
-    elif choice == "6":
+    elif choice == "7":
         keyword = input("Enter a keyword for the cipher: ")
         ciphered_word = keyword_cipher(text, keyword)
         print("Ciphered word using Keyword Cipher:", ciphered_word)
-    elif choice == "7":
+    elif choice == "8":
         ciphered_word = substitution_cipher(text)
         print("Ciphered word using Substitution:", ciphered_word)
     else:
