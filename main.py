@@ -1,5 +1,6 @@
 import random
 
+# ATBASH CIPHER 
 def atbash_cipher(text):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     reversed_alphabet = alphabet[::-1]
@@ -12,6 +13,7 @@ def atbash_cipher(text):
             ciphered_text += char
     return ciphered_text
 
+# CAESAR CIPHER
 def caesar_cipher(text, shift):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     ciphered_text = ""
@@ -23,19 +25,19 @@ def caesar_cipher(text, shift):
             ciphered_text += char
     return ciphered_text
 
-def substitution_cipher(text):
+# ROT13 CIPHER
+def rot13_cipher(text):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    shuffled_alphabet = list(alphabet)
-    random.shuffle(shuffled_alphabet)
-    substitution_dict = {alphabet[i]: shuffled_alphabet[i] for i in range(len(alphabet))}
     ciphered_text = ""
     for char in text.upper():
-        if char in substitution_dict:
-            ciphered_text += substitution_dict[char]
+        if char in alphabet:
+            new_index = (alphabet.index(char) + 13) % 26  # Rotate by 13 positions
+            ciphered_text += alphabet[new_index]
         else:
-            ciphered_text += char
+            ciphered_text += char  # Non-alphabetic characters remain unchanged
     return ciphered_text
 
+# TRANSPOSITION CIPHER
 def transposition_cipher(text):
     num_rails = 3
     rails = [''] * num_rails
@@ -48,6 +50,7 @@ def transposition_cipher(text):
             direction *= -1
     return ''.join(rails)
 
+# KEYWORD C
 def keyword_cipher(text, keyword):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     keyword = ''.join(sorted(set(keyword.upper()), key=keyword.index))  # Remove duplicates
@@ -61,15 +64,18 @@ def keyword_cipher(text, keyword):
             ciphered_text += char
     return ciphered_text
 
-def rot13_cipher(text):
+# SUBSTITUTION CIPHER
+def substitution_cipher(text):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    shuffled_alphabet = list(alphabet)
+    random.shuffle(shuffled_alphabet)
+    substitution_dict = {alphabet[i]: shuffled_alphabet[i] for i in range(len(alphabet))}
     ciphered_text = ""
     for char in text.upper():
-        if char in alphabet:
-            new_index = (alphabet.index(char) + 13) % 26  # Rotate by 13 positions
-            ciphered_text += alphabet[new_index]
+        if char in substitution_dict:
+            ciphered_text += substitution_dict[char]
         else:
-            ciphered_text += char  # Non-alphabetic characters remain unchanged
+            ciphered_text += char
     return ciphered_text
 
 # Input from the user
@@ -88,7 +94,7 @@ while True:
         print("Ciphered word using Caesar:", ciphered_word)
     elif choice == "3":
         ciphered_word = rot13_cipher(text)
-        print("Ciphered word using ROT13:", ciphered_word)
+        print("Ciphered word using ROT13 (encode/decode):", ciphered_word)
     elif choice == "4":
         ciphered_word = transposition_cipher(text)
         print("Ciphered word using Transposition:", ciphered_word)
