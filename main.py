@@ -13,7 +13,7 @@ def atbash_cipher(text):
             ciphered_text += char
     return ciphered_text  # Symmetric: applying again reverses the process
 
-# CAESAR CIPHER
+# CAESAR CIPHER (ENCODE)
 def caesar_cipher(text, shift):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     ciphered_text = ""
@@ -25,16 +25,23 @@ def caesar_cipher(text, shift):
             ciphered_text += char
     return ciphered_text
 
+# CAESAR CIPHER (DECODE)
+def caesar_decipher(text, shift):
+    # reversing the word 
+    return caesar_cipher(text, -shift)  
+
 # ROT13 CIPHER
 def rot13_cipher(text):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     ciphered_text = ""
     for char in text.upper():
         if char in alphabet:
-            new_index = (alphabet.index(char) + 13) % 26  # Rotate by 13 positions
+            # rotate the word by 13 places 
+            # note just edit the key for the caesar cipher place 
+            new_index = (alphabet.index(char) + 13) % 26 
             ciphered_text += alphabet[new_index]
         else:
-            ciphered_text += char  # Non-alphabetic characters remain unchanged
+            ciphered_text += char  
     return ciphered_text  # Symmetric: applying again reverses the process
 
 # TRANSPOSITION CIPHER
@@ -82,7 +89,7 @@ def substitution_cipher(text):
 while True:
     text = input("Enter a word to cipher: ")
     choice = input(
-        "Choose cipher type:\n1. Atbash\n2. Caesar\n3. ROT13\n4. Transposition\n5. Keyword\n6. Substitution\n"
+        "Choose cipher type:\n1. Atbash\n2. Caesar (encode)\n3. Caesar (decode)\n4. ROT13\n5. Transposition\n6. Keyword\n7. Substitution\n"
     ).strip().lower()
 
     if choice == "1":
@@ -91,18 +98,22 @@ while True:
     elif choice == "2":
         shift = int(input("Enter key value for Caesar cipher: "))
         ciphered_word = caesar_cipher(text, shift)
-        print("Ciphered word using Caesar:", ciphered_word)
+        print("Ciphered word using Caesar (encode):", ciphered_word)
     elif choice == "3":
+        shift = int(input("Enter key value for Caesar cipher: "))
+        deciphered_word = caesar_decipher(text, shift)
+        print("Deciphered word using Caesar (decode):", deciphered_word)
+    elif choice == "4":
         ciphered_word = rot13_cipher(text)
         print("Ciphered word using ROT13 (encode/decode):", ciphered_word)
-    elif choice == "4":
+    elif choice == "5":
         ciphered_word = transposition_cipher(text)
         print("Ciphered word using Transposition:", ciphered_word)
-    elif choice == "5":
+    elif choice == "6":
         keyword = input("Enter a keyword for the cipher: ")
         ciphered_word = keyword_cipher(text, keyword)
         print("Ciphered word using Keyword Cipher:", ciphered_word)
-    elif choice == "6":
+    elif choice == "7":
         ciphered_word = substitution_cipher(text)
         print("Ciphered word using Substitution:", ciphered_word)
     else:
