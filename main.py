@@ -1,6 +1,6 @@
 import random
 
-# ATBASH CIPHER 
+# ATBASH CIPHER
 def atbash_cipher(text):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     reversed_alphabet = alphabet[::-1]
@@ -11,7 +11,7 @@ def atbash_cipher(text):
             ciphered_text += atbash_dict[char]
         else:
             ciphered_text += char
-    return ciphered_text
+    return ciphered_text  # Symmetric: applying again reverses the process
 
 # CAESAR CIPHER
 def caesar_cipher(text, shift):
@@ -35,7 +35,7 @@ def rot13_cipher(text):
             ciphered_text += alphabet[new_index]
         else:
             ciphered_text += char  # Non-alphabetic characters remain unchanged
-    return ciphered_text
+    return ciphered_text  # Symmetric: applying again reverses the process
 
 # TRANSPOSITION CIPHER
 def transposition_cipher(text):
@@ -50,7 +50,7 @@ def transposition_cipher(text):
             direction *= -1
     return ''.join(rails)
 
-# KEYWORD C
+# KEYWORD CIPHER
 def keyword_cipher(text, keyword):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     keyword = ''.join(sorted(set(keyword.upper()), key=keyword.index))  # Remove duplicates
@@ -87,7 +87,7 @@ while True:
 
     if choice == "1":
         ciphered_word = atbash_cipher(text)
-        print("Ciphered word using Atbash:", ciphered_word)
+        print("Ciphered word using Atbash (encode/decode):", ciphered_word)
     elif choice == "2":
         shift = int(input("Enter key value for Caesar cipher: "))
         ciphered_word = caesar_cipher(text, shift)
